@@ -11,7 +11,7 @@ import numpy as np
 import torch
 import torch.multiprocessing
 
-# torch.multiprocessing.set_sharing_strategy('file_system')
+torch.multiprocessing.set_sharing_strategy('file_system')
 import torch.multiprocessing as mp
 from tensorboardX import SummaryWriter
 
