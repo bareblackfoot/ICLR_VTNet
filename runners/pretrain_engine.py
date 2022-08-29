@@ -7,11 +7,13 @@ import json
 from typing import Iterable
 
 import torch
+from graph.graph_wrapper import GraphEnv
 
 import utils.misc as utils
 
 
 def train_one_epoch(
+        config, args,
         model: torch.nn.Module,
         criterion: torch.nn.Module,
         data_loader: Iterable,
@@ -28,6 +30,7 @@ def train_one_epoch(
     metric_logger.add_meter('class_error', utils.SmoothedValue(window_size=1, fmt='{value:.2f}'))
     header = 'Epoch: [{}]'.format(epoch)
     print_freq = print_freq
+    graph = GraphEnv(config, args)
     epoch_time = time.time()
 
     for i, (global_feature, local_feature, targets) in enumerate(data_loader):
@@ -35,8 +38,11 @@ def train_one_epoch(
         local_feature = {k: v.type(torch.FloatTensor).to(device) for k, v in local_feature.items() if
                          (k != 'locations') and (k != 'targets')}
         targets = targets.to(device)
-
-        outputs = model(global_feature, local_feature)
+        graph.build_graph(obs_list, reset=True)
+        for t in range(global_feature.shape[0]):
+            local_feature_t = {k: v[t] for k, v in local_feature.items()}
+            memory = graph.step(global_feature[t], local_feature_t)
+            outputs = model(memory, global_feature[t], local_feature_t)
         losses = criterion(outputs['action'], targets)
 
         optimizer.zero_grad()
