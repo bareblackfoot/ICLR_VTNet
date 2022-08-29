@@ -32,6 +32,19 @@ def run_episode(player, args, total_reward, model_options, training, shared_mode
             break
     return total_reward
 
+def run_optimal_episode(player, args, total_reward, model_options, training, shared_model=None):
+    num_steps = args.num_steps
+
+    update_test = False
+
+    for _ in range(num_steps):
+        player.action(model_options, training, update_test)
+
+        total_reward = total_reward + player.reward
+        if player.done:
+            break
+    return total_reward
+
 
 def new_episode(args, player):
     player.episode.new_episode(args, player.scenes, player.targets)

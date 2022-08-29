@@ -38,10 +38,14 @@ def train_one_epoch(
         local_feature = {k: v.type(torch.FloatTensor).to(device) for k, v in local_feature.items() if
                          (k != 'locations') and (k != 'targets')}
         targets = targets.to(device)
-        graph.build_graph(obs_list, reset=True)
+        local_feature_t = {k: v[0] for k, v in local_feature.items()}
+        obs = {}
+        obs['panoramic_rgb'] = global_feature[0]
+        obs['local_feature'] = local_feature_t[0]
+        memory = graph.build_graph(global_feature[0], local_feature_t, reset=True)
         for t in range(global_feature.shape[0]):
             local_feature_t = {k: v[t] for k, v in local_feature.items()}
-            memory = graph.step(global_feature[t], local_feature_t)
+            memory = graph.build_graph(global_feature[t], local_feature_t)
             outputs = model(memory, global_feature[t], local_feature_t)
         losses = criterion(outputs['action'], targets)
 

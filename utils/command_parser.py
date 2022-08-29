@@ -476,6 +476,12 @@ def parse_arguments():
         type=str,
         default='optimal_action.json'
     )
+    parser.add_argument(
+        "--visualize",
+        action='store_true',
+        default=False,
+        help="This will show the episode videos",
+    )
 
     # ==================================================
     # arguments related with models

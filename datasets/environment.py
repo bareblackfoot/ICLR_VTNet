@@ -21,6 +21,7 @@ class Environment:
         visible_object_map_file_name='visible_object_map.json',
         local_executable_path=None,
         optimal_action_file_name=None,
+        visualize=True,
     ):
 
         self.offline_data_dir = offline_data_dir
@@ -33,7 +34,7 @@ class Environment:
             detection_feature_file_name=detection_feature_file_name,
             images_file_name=images_file_name,
             metadata_file_name=visible_object_map_file_name,
-            visualize=False,
+            visualize=visualize,
             local_executable_path=local_executable_path,
             optimal_action_file_name=optimal_action_file_name,
         )

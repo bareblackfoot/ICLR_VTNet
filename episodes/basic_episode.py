@@ -170,6 +170,7 @@ class BasicEpisode(Episode):
                 visible_object_map_file_name=args.visible_map_file_name,
                 local_executable_path=args.local_executable_path,
                 optimal_action_file_name=args.optimal_action_file_name,
+                visualize=args.visualize,
             )
             self._env.start(scene)
         else:

@@ -20,10 +20,14 @@ class NavigationAgent(ThorAgent):
 
         episode_constructor = episode_class(args.episode_type)
         episode = episode_constructor(args, gpu_id, args.strict_done)
-
-        super(NavigationAgent, self).__init__(
-            create_model(args), args, rank, scenes, targets, episode, max_episode_length, gpu_id
-        )
+        if create_model == None:
+            super(NavigationAgent, self).__init__(
+                None, args, rank, scenes, targets, episode, max_episode_length, gpu_id
+            )
+        else:
+            super(NavigationAgent, self).__init__(
+                create_model(args), args, rank, scenes, targets, episode, max_episode_length, gpu_id
+            )
         self.hidden_state_sz = hidden_state_sz
         self.keep_ori_obs = args.keep_ori_obs
 
