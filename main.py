@@ -226,8 +226,8 @@ def main():
                 )
                 torch.save(state, save_path)
 
-            if args.test_speed and train_total_ep % 10000 == 0:
-                print('{} ep/s'.format(10000 / (time.time() - start_time)))
+            if args.test_speed and train_total_ep % 1000 == 0:
+                print('{} ep/s'.format(1000 / (time.time() - start_time)))
                 start_time = time.time()
 
     finally:
