@@ -50,7 +50,7 @@ def a3c_val(
 
     shared_model = model_create_fn(args)
 
-    if model_to_open != "":
+    if model_to_open != None:
         saved_state = torch.load(
             model_to_open, map_location=lambda storage, loc: storage
         )

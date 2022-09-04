@@ -46,7 +46,7 @@ def full_eval(args=None, train_dir=None):
     checkpoints = [
         (f, int(s[-3]))
         for (f, s) in checkpoints
-        if len(s) >= 4 and f.startswith(args.title) and int(s[-3]) >= args.test_start_from
+        # if len(s) >= 4 #and f.startswith(args.title) and int(s[-3]) >= args.test_start_from
     ]
     checkpoints.sort(key=lambda x: x[1])
 
