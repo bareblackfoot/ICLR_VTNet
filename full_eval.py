@@ -22,7 +22,9 @@ def full_eval(args=None, train_dir=None):
     args.episode_type = 'TestValEpisode'
     args.test_or_val = 'val'
 
-    args.data_dir = os.path.expanduser('~/Data/AI2Thor_offline_data_2.0.2/')
+    # args.data_dir = os.path.expanduser('~/Data/AI2Thor_offline_data_2.0.2/')
+    # args.data_dir = os.path.expanduser('~/Data/AI2Thor_offline_data_2.0.2/')
+    args.data_dir = os.path.expanduser('/disk2/nuri/AI2Thor_offline_data_2.0.2/')
 
     if args.detection_feature_file_name is None:
         args.detection_feature_file_name = '{}_features_{}cls.hdf5'.format(args.detection_alg, args.num_category)

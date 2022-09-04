@@ -65,7 +65,7 @@ def main():
     args.num_steps = 50
     target = a3c_val if args.eval else a3c_train
 
-    args.data_dir = os.path.expanduser('~/Data/AI2Thor_offline_data_2.0.2/')
+    args.data_dir = os.path.expanduser('/disk2/nuri/AI2Thor_offline_data_2.0.2/')
     scenes = loading_scene_list(args)
 
     if args.detection_feature_file_name is None:
